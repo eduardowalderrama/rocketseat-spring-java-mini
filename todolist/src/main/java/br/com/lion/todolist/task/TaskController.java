@@ -44,4 +44,13 @@ public class TaskController {
         var tasks = this.repository.findByIdUser((UUID) idUser);
         return tasks;
     }
+
+    // http://127.0.0.1:8080/tasks/892347823-cdfgcvg-832748234
+    @PutMapping("/{id}")
+    public TaskModel update(@RequestBody TaskModel taskModel, @PathVariable UUID id, HttpServletRequest request) {
+        var idUser = request.getAttribute("idUser");
+        taskModel.setIdUser((UUID) idUser);
+        taskModel.setId(id);
+        return this.repository.save(taskModel);
+    }
 }
